@@ -1,4 +1,5 @@
 import http.client
+import json
 import config
 
 conn = http.client.HTTPSConnection("coingecko.p.rapidapi.com")
@@ -12,5 +13,12 @@ conn.request("GET", "/simple/price?ids=bitcoin%2Cethereum&vs_currencies=CAD%2CEU
 
 res = conn.getresponse()
 data = res.read()
+response = json.loads(data.decode("utf-8"))
 
-print(data.decode("utf-8"))
+def getEthereum():
+    return response["ethereum"]
+
+def getBitcoin():
+    return response["bitcoin"]
+
+print(response)
